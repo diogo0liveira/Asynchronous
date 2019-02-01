@@ -225,7 +225,15 @@ internal class AsyncCore<Params, Result>(
 
     fun isRunning(): Boolean
     {
-        return task?.takeIf { !it.isCancelled /*&& !it.interrupted*/ && it.status == AsyncTask.Status.RUNNING } != null
+        return task?.takeIf { !it.isCancelled && !it.interrupted && it.status == AsyncTask.Status.RUNNING } != null
+    }
+
+    private fun reset() {
+        error = null
+        result = null
+        progress = null
+        hasToReturn = false
+        state = State.NONE
     }
 
     @SafeVarargs
@@ -241,6 +249,7 @@ internal class AsyncCore<Params, Result>(
             cancel()
         }
 
+        reset()
         task = TaskCore().apply {
             if(params.isNotEmpty())
             {
@@ -268,9 +277,7 @@ internal class AsyncCore<Params, Result>(
             isFinalized = true
         }
 
-        result = null
-        hasToReturn = false
-        state = State.NONE
+        reset()
 
         arguments?.clear()
         val running = manager.findFragmentByTag(taget) as Asynchronous<*, *>?
