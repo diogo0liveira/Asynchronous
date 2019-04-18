@@ -1,0 +1,99 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply from: 'publish.gradle'
+
+bintray {
+    //noinspection GroovyAccessibility
+    user = bintrayUsername
+    //noinspection GroovyAccessibility
+    key = bintrayApiKey
+    //noinspection GroovyAccessibility
+    configurations = ['archives']
+
+    pkg {
+        name = bintrayName
+        repo = bintrayRepository
+        desc = bintrayDescription
+
+        vcsUrl = gitUrl
+        githubRepo = gitUrl
+        websiteUrl = projectUrl
+        issueTrackerUrl = issuesUrl
+        licenses = bintrayLicenses
+        labels = bintrayLabels
+
+        publish = true
+        override = true
+        publicDownloadNumbers = true
+
+        version {
+            released = new Date()
+            vcsTag = version
+        }
+    }
+}
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId group
+            version version
+            artifactId project.name
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'aar'
+        }
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+if (project.hasProperty("kotlin")) {
+    task sourcesJar(type: Jar) {
+        //noinspection GrDeprecatedAPIUsage
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc, dependsOn: dokka) {
+
+    }
+} else if (project.hasProperty("android")) {
+    task sourcesJar(type: Jar) {
+        //noinspection GrDeprecatedAPIUsage
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else {
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        //noinspection GrDeprecatedAPIUsage
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    //noinspection GrDeprecatedAPIUsage
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -35,3 +35,5 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$extJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 }
+
+apply from: rootProject.file('bintray.gradle')

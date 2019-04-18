@@ -1,17 +1,16 @@
 package com.dao.asynchronous.app
 
-import com.dao.asynchronous.Asynchronous
+import com.dao.asynchronous.SingleAsynchronous
 
 /**
  * Created in 30/01/19 19:05.
  *
  * @author Diogo Oliveira.
  */
-class ExecuteTask: Asynchronous<String, Boolean>()
+class ExecuteTask : SingleAsynchronous<String, Boolean>()
 {
-    override fun doInBackground(vararg params: String): Boolean
+    override fun doInBackground(param: String): Boolean
     {
-        return (params.contains("test"))
+        return (param.contains("test"))
     }
-
 }

@@ -1,0 +1,27 @@
+ext {
+    bintrayName        = 'common'
+    bintrayRepository  = 'android'
+    bintrayDescription = 'Wrapper para "AsyncTask" que conhece o ciclo do host. (Activiy/Fragment).'
+
+    bintrayLicenses = ['Apache-2.0']
+    bintrayLabels   = ['android', 'Java']
+
+    version android.defaultConfig.versionName
+    group 'com.dao.asynchronous'
+    artifact = 'asynchronous'
+
+    gitUrl     = 'https://github.com/diogo0liveira'
+    projectUrl = 'https://github.com/diogo0liveira/Asynchronous'
+    issuesUrl  = 'https://github.com/diogo0liveira/Asynchronous/issues'
+
+    developerId              = 'diogo0liveira'
+    developerName            = 'Diogo Oliveira'
+    developerOrganization    = 'diogo0liveira@hotmail.com'
+    developerOrganizationUrl = 'https://github.com/diogo0liveira'
+
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(rootProject.file("keystore.properties")))
+
+    bintrayUsername = keystoreProperties['BINTRAY_USER']
+    bintrayApiKey = keystoreProperties['BINTRAY_KEY']
+}
