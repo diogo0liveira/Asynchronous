@@ -1,10 +1,10 @@
 ext {
-    bintrayName        = 'common'
+    bintrayName        = 'asynchronous'
     bintrayRepository  = 'android'
-    bintrayDescription = 'Wrapper para "AsyncTask" que conhece o ciclo do host. (Activiy/Fragment).'
+    bintrayDescription = 'Wrapper para "AsyncTask" que conhece o ciclo do host. (Activity/Fragment).'
 
     bintrayLicenses = ['Apache-2.0']
-    bintrayLabels   = ['android', 'Java']
+    bintrayLabels   = ['Android', 'Java']
 
     version android.defaultConfig.versionName
     group 'com.dao.asynchronous'
