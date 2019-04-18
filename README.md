@@ -21,11 +21,14 @@ class ExecuteTask : SingleAsynchronous<String, Boolean>()
 
 ```kotlin
 val executeTask = AsynchronousProviders.of(ExecuteTask::class.java, supportFragmentManager)
-executeTask.attachListener(object: OnAsynchronousListener<Boolean>() {
+
+executeTask.attachListener(object: OnAsynchronousListener<Boolean>() 
+{
     override fun onBegin(tag: String)
     {
         showLoading()
     }
+    
     override fun onSuccess(tag: String, result: Boolean)
     {
         if(result)
@@ -33,10 +36,12 @@ executeTask.attachListener(object: OnAsynchronousListener<Boolean>() {
             Toast.makeText(context, "executed successfully", Toast.LENGTH_LONG).show()
         }
     }
+    
     override fun onError(tag: String, e: Exception)
     {
         Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
     }
+    
     override fun onFinish(task: Asynchronous?)
     {
         hideLoading()
