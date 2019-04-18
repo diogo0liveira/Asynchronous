@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnCompleteAsynch
             {
                 val executeTask = AsynchronousProviders.of(ExecuteTask::class.java, supportFragmentManager)
                 asyncConclude.add(executeTask.execute("test"))
-
             }
         }
     }
