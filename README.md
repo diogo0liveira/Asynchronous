@@ -49,3 +49,19 @@ executeTask.attachListener(object: OnAsynchronousListener<Boolean>()
     }
 })
 ```
+
+Encerra todas a operações.
+```kotlin
+//(1) manter uma referência as operações iniciadas.
+private val asyncConclude = AsyncConclude()
+
+//(2) set a referência para "asyncConclude".
+val conclude = executeTask.execute("test")
+asyncConclude.add(conclude)
+
+//(3) finaliza todas a referências.
+override fun onDestroy()
+{
+    asyncConclude.clear(supportFragmentManager)
+    super.onDestroy()
+}
