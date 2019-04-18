@@ -8,7 +8,7 @@ dependencies {
     implementation 'com.dao.asynchronous:asynchronous:1.0.0'
 }
 ```
-
+Classe que realizará a operação.
 ```kotlin
 class ExecuteTask : SingleAsynchronous<String, Boolean>()
 {
@@ -19,6 +19,7 @@ class ExecuteTask : SingleAsynchronous<String, Boolean>()
 }
 ```
 
+Inicia a operação em background.
 ```kotlin
 val executeTask = AsynchronousProviders.of(ExecuteTask::class.java, supportFragmentManager)
 
