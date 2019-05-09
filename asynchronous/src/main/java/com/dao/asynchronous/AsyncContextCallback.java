@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
  *
  * @author Diogo Oliveira.
  */
-public interface AsyncContextCallback
+interface AsyncContextCallback
 {
     @Nullable
     Context getContext();

@@ -19,7 +19,7 @@ public class AsynchronousProviders
             asynchronous = asyncClass.newInstance();
             Asynchronous running = (Asynchronous)manager.findFragmentByTag(asynchronous.tag());
 
-            if(running == null)
+            if((running == null) || running.isRemoving())
             {
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.add(asynchronous, asynchronous.tag()).commit();
