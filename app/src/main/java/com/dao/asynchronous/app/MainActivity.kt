@@ -1,6 +1,7 @@
 package com.dao.asynchronous.app
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.dao.asynchronous.*
@@ -47,26 +48,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnCompleteAsynch
 
     override fun onSuccess(tag: String, result: Boolean)
     {
-        //To change body of created functions
+        Log.d("TAG", "$tag [$result]")
     }
 
     override fun onProgress(tag: String, progress: Progress)
     {
-        //To change body of created functions
+        Log.d("TAG", "$tag [$progress]")
     }
 
     override fun onCancelled(tag: String, result: Boolean)
     {
-        //To change body of created functions
+        Log.d("TAG", "$tag [$result]")
     }
 
     override fun onError(tag: String, e: Exception)
     {
-        //To change body of created functions
+        Log.d("TAG", "$tag [$e]")
     }
 
     override fun onFinish(task: Asynchronous)
     {
-        //To change body of created functions
+        Log.d("TAG", "$task")
     }
 }
