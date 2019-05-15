@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
  *
  * @author Diogo Oliveira.
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements AsyncCallback<Params, Result>, AsyncContextCallback
 {
     protected OnCompleteAsynchronousListener<Result> listener;
@@ -36,7 +38,7 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
     }
 
     @Override
-    public void onAttach(Context context)
+    public void onAttach(@NotNull Context context)
     {
         super.onAttach(context);
 
@@ -299,16 +301,11 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
     public void start(@NonNull FragmentManager manager, final Params... params)
     {
         finish(manager, true);
-
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(this, tag()).runOnCommit(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                BaseAsynchronous.this.run(params);
-            }
-        }).commitAllowingStateLoss();
+
+        transaction.add(this, tag())
+                .runOnCommit(() -> BaseAsynchronous.this.run(params))
+                .commitAllowingStateLoss();
     }
 
     public final boolean cancel(boolean interruptIfRunning)

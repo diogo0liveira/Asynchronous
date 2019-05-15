@@ -41,8 +41,8 @@ ext {
     constraintlayoutVersion = '2.0.0-alpha4'
 
     /* Test */
-    extJunitVersion = '1.1.1-alpha03'
     junitVersion = '4.13-beta-2'
+    extJunitVersion = '1.1.1-alpha03'
     espressoCoreVersion = '3.2.0-alpha03'
 
     mockitoCoreVersion = '2.21.0'
