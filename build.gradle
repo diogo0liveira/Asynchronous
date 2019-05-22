@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.3.31'
-    ext.core_ktx = '1.1.0-alpha05'
+    ext.core_ktx = '1.2.0-alpha01'
 
     repositories {
         google()
@@ -37,13 +37,13 @@ ext {
     targetSdkVersion = 28
     compileSdkVersion = 28
 
-    appcompatVersion = '1.1.0-alpha04'
-    constraintlayoutVersion = '2.0.0-alpha4'
+    appcompatVersion = '1.1.0-alpha05'
+    constraintlayoutVersion = '2.0.0-beta1'
 
     /* Test */
-    junitVersion = '4.13-beta-2'
-    extJunitVersion = '1.1.1-alpha03'
-    espressoCoreVersion = '3.2.0-alpha03'
+    junitVersion = '4.13-beta-3'
+    extJunitVersion = '1.1.1-beta01'
+    espressoCoreVersion = '3.2.0-beta01'
 
     mockitoCoreVersion = '2.21.0'
     mockitoAndroidVersion = '2.21.0'
