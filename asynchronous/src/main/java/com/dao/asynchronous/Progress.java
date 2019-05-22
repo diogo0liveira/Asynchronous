@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
  *
  * @author Diogo Oliveira.
  */
-public class Progress
+public class Progress implements Cloneable
 {
     private int percentage;
     private int increment;
@@ -85,6 +85,20 @@ public class Progress
     public void setFailed(boolean failed)
     {
         isFailed = failed;
+    }
+
+    public Progress clone()
+    {
+        try
+        {
+            return (Progress)super.clone();
+        }
+        catch(CloneNotSupportedException e)
+        {
+            e.printStackTrace();
+        }
+
+        return this;
     }
 
     @NonNull

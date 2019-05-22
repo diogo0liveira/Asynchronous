@@ -137,7 +137,7 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
     {
         if(task != null)
         {
-            this.progress = progress;
+            this.progress = progress.clone();
             task.publishProgress(progress);
         }
     }
