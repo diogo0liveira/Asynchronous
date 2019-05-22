@@ -92,12 +92,6 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
     }
 
     @Override
-    public void cancel()
-    {
-        cancel(true);
-    }
-
-    @Override
     public void onDetach()
     {
         listener = null;
@@ -105,15 +99,15 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
     }
 
     @Override
-    public boolean isAttach()
+    public void cancel()
     {
-        return this.isAdded();
+        cancel(true);
     }
 
     @Override
-    public Context getContext()
+    public boolean isAttach()
     {
-        return super.getContext();
+        return this.isAdded();
     }
 
     @Override
@@ -244,6 +238,7 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
 
         reset();
         task = new Task<>(this);
+        progress = new Progress();
 
         if(params.length > 0)
         {
@@ -283,7 +278,7 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
         if(running != null)
         {
             running.cancel();
-            transaction.remove(running).commitAllowingStateLoss();
+            transaction.remove(running).commitNowAllowingStateLoss();
         }
     }
 
@@ -305,7 +300,7 @@ abstract class BaseAsynchronous<Params, Result> extends Asynchronous implements 
 
         transaction.add(this, tag())
                 .runOnCommit(() -> BaseAsynchronous.this.run(params))
-                .commitAllowingStateLoss();
+                .commitNowAllowingStateLoss();
     }
 
     public final boolean cancel(boolean interruptIfRunning)

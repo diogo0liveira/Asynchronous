@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), View.OnClickListener, OnCompleteAsynchronousListener<Boolean>
 {
     private val asyncConclude = AsyncConclude()
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -29,21 +30,37 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnCompleteAsynch
         buttonRun.setOnClickListener(this)
     }
 
+    private fun showProgressDialog()
+    {
+        progressDialog = ProgressDialog.newInstance()
+                .title("Assistente Venda")
+                .message("gerando pedido sugestão ...")
+                .progressStyle()
+                .maxValue(100)
+
+        progressDialog.show(supportFragmentManager)
+    }
+
+    private fun hideProgressDialog()
+    {
+        progressDialog.dismiss()
+    }
+
     override fun onClick(view: View)
     {
         when(view.id)
         {
             R.id.buttonRun ->
             {
-                val executeTask = AsynchronousProviders.of(ExecuteTask::class.java, supportFragmentManager)
-                asyncConclude.add(executeTask.execute("test"))
+//                val executeTask = AsynchronousProviders.of(ExecuteTask::class.java, supportFragmentManager)
+//                asyncConclude.add(executeTask.execute("test"))
             }
         }
     }
 
     override fun onBegin(tag: String)
     {
-        //To change body of created functions
+        showProgressDialog()
     }
 
     override fun onSuccess(tag: String, result: Boolean)
@@ -53,6 +70,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnCompleteAsynch
 
     override fun onProgress(tag: String, progress: Progress)
     {
+        progressDialog.setMaxValue(progress.total)
+        progressDialog.incrementBy(progress.increment)
         Log.d("TAG", "$tag [$progress]")
     }
 
@@ -68,6 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, OnCompleteAsynch
 
     override fun onFinish(task: Asynchronous)
     {
+        hideProgressDialog()
         Log.d("TAG", "$task")
     }
 }

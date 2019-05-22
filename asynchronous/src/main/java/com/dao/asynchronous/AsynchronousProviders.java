@@ -22,7 +22,7 @@ public class AsynchronousProviders
             if((running == null) || running.isRemoving())
             {
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.add(asynchronous, asynchronous.tag()).commit();
+                transaction.add(asynchronous, asynchronous.tag()).commitNowAllowingStateLoss();
             }
             else
             {
