@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
  *
  * @author Diogo Oliveira.
  */
-public class Progress implements Cloneable
+public class Progress
 {
     private int percentage;
     private int increment;
